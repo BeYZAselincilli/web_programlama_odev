@@ -1,0 +1,22 @@
+﻿@model Hastane_Randevu.Models.Doktor
+
+<h2>Doktor Sil</h2>
+
+<h3>Gerçekten doktoru silmek istiyor musunuz?</h3>
+<div>
+    <h4>Doktor</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>Ad</dt>
+        <dd>@Model.Ad</dd>
+        <dt>Soyad</dt>
+        <dd>@Model.Soyad</dd>
+        <!-- Diğer doktor bilgileri -->
+    </dl>
+
+    <form asp-action="Delete" method="post">
+        <input type="hidden" asp-for="DoktorID" />
+        <input type="submit" value="Sil" class="btn btn-danger" /> |
+        <a asp-action="Index">İptal</a>
+    </form>
+</div>

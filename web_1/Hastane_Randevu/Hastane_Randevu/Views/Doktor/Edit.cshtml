@@ -1,0 +1,29 @@
+﻿@model Hastane_Randevu.Models.Doktor
+
+<h2>Doktor Düzenle</h2>
+
+<form asp-action="Edit">
+    <input type="hidden" asp-for="DoktorID" />
+    <div class="form-group">
+        <label asp-for="Ad" class="control-label"></label>
+        <input asp-for="Ad" class="form-control" />
+        <span asp-validation-for="Ad" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Soyad" class="control-label"></label>
+        <input asp-for="Soyad" class="form-control" />
+        <span asp-validation-for="Soyad" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="UzmanlikAlaniID" class="control-label"></label>
+        <input asp-for="UzmanlikAlaniID" class="form-control" />
+        <span asp-validation-for="UzmanlikAlaniID" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Kaydet" class="btn btn-primary" />
+    </div>
+</form>
+
+<div>
+    <a asp-action="Index">Geri Dön</a>
+</div>

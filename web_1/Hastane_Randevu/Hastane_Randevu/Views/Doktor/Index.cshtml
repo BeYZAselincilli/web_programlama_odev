@@ -1,0 +1,31 @@
+﻿@model IEnumerable<Hastane_Randevu.Models.Doktor>
+
+<h2>Doktor Listesi</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Ad</th>
+            <th>Soyad</th>
+            <th>Uzmanlık Alanı</th>
+            <th>Aksiyonlar</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var doktor in Model)
+        {
+            <tr>
+                <td>@doktor.Ad</td>
+                <td>@doktor.Soyad</td>
+                <td>@doktor.UzmanlikAlaniID</td> <!-- Uzmanlık alanı ID'si yerine adını göstermek daha iyi olabilir -->
+                <td>
+                    <a asp-action="Edit" asp-route-id="@doktor.DoktorID">Düzenle</a> |
+                    <a asp-action="Details" asp-route-id="@doktor.DoktorID">Detaylar</a> |
+                    <a asp-action="Delete" asp-route-id="@doktor.DoktorID">Sil</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<a asp-action="Create">Yeni Doktor Ekle</a>
