@@ -1,0 +1,14 @@
+C:\Users\selin.cilli\source\repos\Hospital2\Hospital2.Repositories\bin\Debug\net6.0\Hospital2.Repositories.deps.json
+C:\Users\selin.cilli\source\repos\Hospital2\Hospital2.Repositories\bin\Debug\net6.0\Hospital2.Repositories.runtimeconfig.json
+C:\Users\selin.cilli\source\repos\Hospital2\Hospital2.Repositories\bin\Debug\net6.0\Hospital2.Repositories.dll
+C:\Users\selin.cilli\source\repos\Hospital2\Hospital2.Repositories\bin\Debug\net6.0\Hospital2.Repositories.pdb
+C:\Users\selin.cilli\source\repos\Hospital2\Hospital2.Repositories\obj\Debug\net6.0\Hospital2.Repositories.csproj.AssemblyReference.cache
+C:\Users\selin.cilli\source\repos\Hospital2\Hospital2.Repositories\obj\Debug\net6.0\Hospital2.Repositories.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\selin.cilli\source\repos\Hospital2\Hospital2.Repositories\obj\Debug\net6.0\Hospital2.Repositories.AssemblyInfoInputs.cache
+C:\Users\selin.cilli\source\repos\Hospital2\Hospital2.Repositories\obj\Debug\net6.0\Hospital2.Repositories.AssemblyInfo.cs
+C:\Users\selin.cilli\source\repos\Hospital2\Hospital2.Repositories\obj\Debug\net6.0\Hospital2.Repositories.csproj.CoreCompileInputs.cache
+C:\Users\selin.cilli\source\repos\Hospital2\Hospital2.Repositories\obj\Debug\net6.0\Hospital2.Repositories.dll
+C:\Users\selin.cilli\source\repos\Hospital2\Hospital2.Repositories\obj\Debug\net6.0\refint\Hospital2.Repositories.dll
+C:\Users\selin.cilli\source\repos\Hospital2\Hospital2.Repositories\obj\Debug\net6.0\Hospital2.Repositories.pdb
+C:\Users\selin.cilli\source\repos\Hospital2\Hospital2.Repositories\obj\Debug\net6.0\Hospital2.Repositories.genruntimeconfig.cache
+C:\Users\selin.cilli\source\repos\Hospital2\Hospital2.Repositories\obj\Debug\net6.0\ref\Hospital2.Repositories.dll
