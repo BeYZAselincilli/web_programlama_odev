@@ -1,0 +1,991 @@
+@model Ucak__Rezervasyon.Models.Flight
+
+@{
+    ViewData["Title"] = "Uçuş Detayları";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<div>
+    <h4>Uçuş Detayları</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            Uçuş ID
+        </dt>
+        <dd class="col-sm-10">
+            @Model.FlightID
+        </dd>
+        <dt class="col-sm-2">
+            Kalkış Zamanı
+        </dt>
+        <dd class="col-sm-10">
+            @Model.DepartureTime.ToString("dd/MM/yyyy HH:mm")
+        </dd>
+        <dt class="col-sm-2">
+            Varış Zamanı
+        </dt>
+        <dd class="col-sm-10">
+            @Model.ArrivalTime.ToString("dd/MM/yyyy HH:mm")
+        </dd>
+        <dt class="col-sm-2">
+            Güzergah ID
+        </dt>
+        <dd class="col-sm-10">
+            @Model.RouteID
+        </dd>
+        <dt class="col-sm-2">
+            Uçak ID
+        </dt>
+        <dd class="col-sm-10">
+            @Model.PlaneID
+        </dd>
+        
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.FlightID">Düzenle</a> |
+    <a asp-action="Index">Geri Dön</a>
+</div>
+
+
+@model IEnumerable<Ucak__Rezervasyon.Models.Flight>
+
+@{
+    ViewData["Title"] = "Uçuş Listesi";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<p>
+    <a asp-action="Create">Yeni Uçuş Ekle</a>
+</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Flight ID</th>
+            <th>Kalkış Zamanı</th>
+            <th>Varış Zamanı</th>
+            <th>Güzergah</th>
+            <th>Uçak Modeli</th>
+            <th>Detaylar</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var flight in Model)
+        {
+            <tr>
+                <td>@flight.FlightID</td>
+                <td>@flight.DepartureTime.ToString("dd/MM/yyyy HH:mm")</td>
+                <td>@flight.ArrivalTime.ToString("dd/MM/yyyy HH:mm")</td>
+                <td>@flight.RouteID</td> <!-- Güzergah bilgisi -->
+                <td>@flight.PlaneID</td> <!-- Uçak model bilgisi -->
+                <td>
+                    <a asp-action="Details" asp-route-id="@flight.FlightID">Detaylar</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+</div>
+
+@{
+    ViewData["Title"] = "Privacy Policy";
+}
+<h1>@ViewData["Title"]</h1>
+
+<p>Use this page to detail your site's privacy policy.</p>
+
+
+@model Ucak__Rezervasyon.Models.Language
+
+<h2>Yeni Dil Ekle</h2>
+
+<form asp-action="Create">
+    <div class="form-group">
+        <label asp-for="LanguageCode" class="control-label"></label>
+        <input asp-for="LanguageCode" class="form-control" />
+        <span asp-validation-for="LanguageCode" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="LanguageName" class="control-label"></label>
+        <input asp-for="LanguageName" class="form-control" />
+        <span asp-validation-for="LanguageName" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Kaydet" class="btn btn-primary" />
+    </div>
+</form>
+
+<div>
+    <a asp-action="Index">Geri Dön</a>
+</div>
+
+@model Ucak__Rezervasyon.Models.Language
+
+<h2>Dil Detayları</h2>
+
+<dl class="row">
+    <dt class="col-sm-2">
+        Dil ID
+    </dt>
+    <dd class="col-sm-10">
+        @Model.LanguageID
+    </dd>
+    <dt class="col-sm-2">
+        Dil Kodu
+    </dt>
+    <dd class="col-sm-10">
+        @Model.LanguageCode
+    </dd>
+    <dt class="col-sm-2">
+        Dil Adı
+    </dt>
+    <dd class="col-sm-10">
+        @Model.LanguageName
+    </dd>
+</dl>
+
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.LanguageID">Düzenle</a> |
+    <a asp-action="Index">Geri Dön</a>
+</div>
+
+@model IEnumerable<Ucak__Rezervasyon.Models.Language>
+
+<h2>Dil Listesi</h2>
+
+<p>
+    <a asp-action="Create">Yeni Dil Ekle</a>
+</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Dil ID</th>
+            <th>Dil Kodu</th>
+            <th>Dil Adı</th>
+            <th>Detaylar</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var language in Model)
+        {
+            <tr>
+                <td>@language.LanguageID</td>
+                <td>@language.LanguageCode</td>
+                <td>@language.LanguageName</td>
+                <td><a asp-action="Details" asp-route-id="@language.LanguageID">Detaylar</a></td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@model Ucak__Rezervasyon.Models.Plane
+
+<h2>Yeni Uçak Ekle</h2>
+
+<form asp-action="Create">
+    <div class="form-group">
+        <label asp-for="Model" class="control-label"></label>
+        <input asp-for="Model" class="form-control" />
+        <span asp-validation-for="Model" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Capacity" class="control-label"></label>
+        <input asp-for="Capacity" class="form-control" />
+        <span asp-validation-for="Capacity" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Kaydet" class="btn btn-primary" />
+    </div>
+</form>
+
+<div>
+    <a asp-action="Index">Geri Dön</a>
+</div>
+
+
+@model Ucak__Rezervasyon.Models.Plane
+
+<h2>Uçak Detayları</h2>
+
+<dl class="row">
+    <dt class="col-sm-2">
+        Uçak ID
+    </dt>
+    <dd class="col-sm-10">
+        @Model.PlaneID
+    </dd>
+    <dt class="col-sm-2">
+        Model
+    </dt>
+    <dd class="col-sm-10">
+        @Model.Model
+    </dd>
+    <dt class="col-sm-2">
+        Kapasite
+    </dt>
+    <dd class="col-sm-10">
+        @Model.Capacity
+    </dd>
+</dl>
+
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.PlaneID">Düzenle</a> |
+    <a asp-action="Index">Geri Dön</a>
+</div>
+
+@model IEnumerable<Ucak__Rezervasyon.Models.Plane>
+
+<h2>Uçak Listesi</h2>
+
+<p>
+    <a asp-action="Create">Yeni Uçak Ekle</a>
+</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Uçak ID</th>
+            <th>Model</th>
+            <th>Kapasite</th>
+            <th>Detaylar</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var plane in Model)
+        {
+            <tr>
+                <td>@plane.PlaneID</td>
+                <td>@plane.Model</td>
+                <td>@plane.Capacity</td>
+                <td><a asp-action="Details" asp-route-id="@plane.PlaneID">Detaylar</a></td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@model Ucak__Rezervasyon.Models.Reservation
+
+<h2>Yeni Rezervasyon Ekle</h2>
+
+<form asp-action="Create" method="post">
+    <div class="form-group">
+        <label asp-for="FlightID">Uçuş ID</label>
+        <input asp-for="FlightID" class="form-control" />
+        <span asp-validation-for="FlightID" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="SeatID">Koltuk ID</label>
+        <input asp-for="SeatID" class="form-control" />
+        <span asp-validation-for="SeatID" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="PassengerName">Yolcu Adı</label>
+        <input asp-for="PassengerName" class="form-control" />
+        <span asp-validation-for="PassengerName" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Date">Tarih</label>
+        <input asp-for="Date" class="form-control" />
+        <span asp-validation-for="Date" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Kaydet</button>
+    <a asp-action="Index" class="btn btn-secondary">İptal</a>
+</form>
+
+
+@model Ucak__Rezervasyon.Models.Reservation
+
+<h2>Rezervasyon Detayları</h2>
+
+<dl class="row">
+    <dt class="col-sm-2">
+        Rezervasyon ID
+    </dt>
+    <dd class="col-sm-10">
+        @Model.ReservationID
+    </dd>
+    <dt class="col-sm-2">
+        Uçuş ID
+    </dt>
+    <dd class="col-sm-10">
+        @Model.FlightID
+    </dd>
+    <dt class="col-sm-2">
+        Koltuk ID
+    </dt>
+    <dd class="col-sm-10">
+        @Model.SeatID
+    </dd>
+    <dt class="col-sm-2">
+        Yolcu Adı
+    </dt>
+    <dd class="col-sm-10">
+        @Model.PassengerName
+    </dd>
+    <dt class="col-sm-2">
+        Tarih
+    </dt>
+    <dd class="col-sm-10">
+        @Model.Date.ToString("dd/MM/yyyy")
+    </dd>
+</dl>
+
+<p>
+    <a asp-action="Index">Geri Dön</a>
+</p>
+
+
+@model IEnumerable<Ucak__Rezervasyon.Models.Reservation>
+
+<h2>Rezervasyon Listesi</h2>
+
+<p>
+    <a asp-action="Create">Yeni Rezervasyon Ekle</a>
+</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Rezervasyon ID</th>
+            <th>Uçuş ID</th>
+            <th>Koltuk ID</th>
+            <th>Yolcu Adı</th>
+            <th>Tarih</th>
+            <th>Detaylar</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var reservation in Model)
+        {
+            <tr>
+                <td>@reservation.ReservationID</td>
+                <td>@reservation.FlightID</td>
+                <td>@reservation.SeatID</td>
+                <td>@reservation.PassengerName</td>
+                <td>@reservation.Date.ToString("dd/MM/yyyy")</td>
+                <td><a asp-action="Details" asp-route-id="@reservation.ReservationID">Detaylar</a></td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+@model Ucak__Rezervasyon.Models.Role
+
+<h2>Yeni Rol Ekle</h2>
+
+<form asp-action="Create">
+    <div class="form-group">
+        <label asp-for="RoleName" class="control-label"></label>
+        <input asp-for="RoleName" class="form-control" />
+        <span asp-validation-for="RoleName" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Kaydet" class="btn btn-primary" />
+    </div>
+</form>
+
+<div>
+    <a asp-action="Index">Geri Dön</a>
+</div>
+
+
+@model Ucak__Rezervasyon.Models.Role
+
+<h2>Rol Detayları</h2>
+
+<dl class="row">
+    <dt class="col-sm-2">
+        Rol ID
+    </dt>
+    <dd class="col-sm-10">
+        @Model.RoleID
+    </dd>
+    <dt class="col-sm-2">
+        Rol Adı
+    </dt>
+    <dd class="col-sm-10">
+        @Model.RoleName
+    </dd>
+</dl>
+
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.RoleID">Düzenle</a> |
+    <a asp-action="Index">Geri Dön</a>
+</div>
+
+
+
+@model IEnumerable<Ucak__Rezervasyon.Models.Role>
+
+<h2>Rol Listesi</h2>
+
+<p>
+    <a asp-action="Create">Yeni Rol Ekle</a>
+</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Rol ID</th>
+            <th>Rol Adı</th>
+            <th>Detaylar</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var role in Model)
+        {
+            <tr>
+                <td>@role.RoleID</td>
+                <td>@role.RoleName</td>
+                <td><a asp-action="Details" asp-route-id="@role.RoleID">Detaylar</a></td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@model Ucak__Rezervasyon.Models.Route
+
+<h2>Yeni Güzergah Ekle</h2>
+
+<form asp-action="Create">
+    <div class="form-group">
+        <label asp-for="Origin" class="control-label"></label>
+        <input asp-for="Origin" class="form-control" />
+        <span asp-validation-for="Origin" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Destination" class="control-label"></label>
+        <input asp-for="Destination" class="form-control" />
+        <span asp-validation-for="Destination" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Distance" class="control-label"></label>
+        <input asp-for="Distance" class="form-control" />
+        <span asp-validation-for="Distance" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Kaydet" class="btn btn-primary" />
+    </div>
+</form>
+
+<div>
+    <a asp-action="Index">Geri Dön</a>
+</div>
+
+
+@model Ucak__Rezervasyon.Models.Route
+
+<h2>Güzergah Detayları</h2>
+
+<dl class="row">
+    <dt class="col-sm-2">
+        Güzergah ID
+    </dt>
+    <dd class="col-sm-10">
+        @Model.RouteID
+    </dd>
+    <dt class="col-sm-2">
+        Kalkış
+    </dt>
+    <dd class="col-sm-10">
+        @Model.Origin
+    </dd>
+    <dt class="col-sm-2">
+        Varış
+    </dt>
+    <dd class="col-sm-10">
+        @Model.Destination
+    </dd>
+    <dt class="col-sm-2">
+        Mesafe
+    </dt>
+    <dd class="col-sm-10">
+        @Model.Distance
+    </dd>
+</dl>
+
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.RouteID">Düzenle</a> |
+    <a asp-action="Index">Geri Dön</a>
+</div>
+
+@model IEnumerable<Ucak__Rezervasyon.Models.Route>
+
+<h2>Güzergah Listesi</h2>
+
+<p>
+    <a asp-action="Create">Yeni Güzergah Ekle</a>
+</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Güzergah ID</th>
+            <th>Kalkış</th>
+            <th>Varış</th>
+            <th>Mesafe</th>
+            <th>Detaylar</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var route in Model)
+        {
+            <tr>
+                <td>@route.RouteID</td>
+                <td>@route.Origin</td>
+                <td>@route.Destination</td>
+                <td>@route.Distance</td>
+                <td><a asp-action="Details" asp-route-id="@route.RouteID">Detaylar</a></td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+
+@model Ucak__Rezervasyon.Models.Seat
+
+<h2>Yeni Koltuk Ekle</h2>
+
+<form asp-action="Create">
+    <div class="form-group">
+        <label asp-for="PlaneID" class="control-label"></label>
+        <input asp-for="PlaneID" class="form-control" />
+        <span asp-validation-for="PlaneID" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="SeatNumber" class="control-label"></label>
+        <input asp-for="SeatNumber" class="form-control" />
+        <span asp-validation-for="SeatNumber" class="text-danger"></span>
+    </div>
+    <!-- Diğer alanlar -->
+    <div class="form-group">
+        <input type="submit" value="Kaydet" class="btn btn-primary" />
+    </div>
+</form>
+
+<div>
+    <a asp-action="Index">Geri Dön</a>
+</div>
+
+@model Ucak__Rezervasyon.Models.Seat
+
+<h2>Koltuk Detayları</h2>
+
+<dl class="row">
+    <dt class="col-sm-2">
+        Koltuk ID
+    </dt>
+    <dd class="col-sm-10">
+        @Model.SeatID
+    </dd>
+    <dt class="col-sm-2">
+        Uçak ID
+    </dt>
+    <dd class="col-sm-10">
+        @Model.PlaneID
+    </dd>
+    <dt class="col-sm-2">
+        Koltuk Numarası
+    </dt>
+    <dd class="col-sm-10">
+        @Model.SeatNumber
+    </dd>
+    <dt class="col-sm-2">
+        Sınıf
+    </dt>
+    <dd class="col-sm-10">
+        @Model.Class
+    </dd>
+    <dt class="col-sm-2">
+        Fiyat
+    </dt>
+    <dd class="col-sm-10">
+        @Model.Price
+    </dd>
+</dl>
+
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.SeatID">Düzenle</a> |
+    <a asp-action="Index">Geri Dön</a>
+</div>
+
+
+@model IEnumerable<Ucak__Rezervasyon.Models.Seat>
+
+<h2>Koltuk Listesi</h2>
+
+<p>
+    <a asp-action="Create">Yeni Koltuk Ekle</a>
+</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Koltuk ID</th>
+            <th>Uçak ID</th>
+            <th>Koltuk Numarası</th>
+            <th>Sınıf</th>
+            <th>Fiyat</th>
+            <th>Detaylar</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var seat in Model)
+        {
+            <tr>
+                <td>@seat.SeatID</td>
+                <td>@seat.PlaneID</td>
+                <td>@seat.SeatNumber</td>
+                <td>@seat.Class</td>
+                <td>@seat.Price</td>
+                <td><a asp-action="Details" asp-route-id="@seat.SeatID">Detaylar</a></td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@model Ucak__Rezervasyon.Models.Translation
+
+<h2>Yeni Çeviri Ekle</h2>
+
+<form asp-action="Create">
+    <div class="form-group">
+        <label asp-for="LanguageID" class="control-label"></label>
+        <input asp-for="LanguageID" class="form-control" />
+        <span asp-validation-for="LanguageID" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Key" class="control-label"></label>
+        <input asp-for="Key" class="form-control" />
+        <span asp-validation-for="Key" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Value" class="control-label"></label>
+        <input asp-for="Value" class="form-control" />
+        <span asp-validation-for="Value" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Kaydet" class="btn btn-primary" />
+    </div>
+</form>
+
+<div>
+    <a asp-action="Index">Geri Dön</a>
+</div>
+
+@model Ucak__Rezervasyon.Models.Translation
+
+<h2>Çeviri Detayları</h2>
+
+<dl class="row">
+    <dt class="col-sm-2">
+        Çeviri ID
+    </dt>
+    <dd class="col-sm-10">
+        @Model.TranslationID
+    </dd>
+    <dt class="col-sm-2">
+        Dil ID
+    </dt>
+    <dd class="col-sm-10">
+        @Model.LanguageID
+    </dd>
+    <dt class="col-sm-2">
+        Anahtar
+    </dt>
+    <dd class="col-sm-10">
+        @Model.Key
+    </dd>
+    <dt class="col-sm-2">
+        Değer
+    </dt>
+    <dd class="col-sm-10">
+        @Model.Value
+    </dd>
+</dl>
+
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.TranslationID">Düzenle</a> |
+    <a asp-action="Index">Geri Dön</a>
+</div>
+
+
+@model IEnumerable<Ucak__Rezervasyon.Models.Translation>
+
+<h2>Çeviri Listesi</h2>
+
+<p>
+    <a asp-action="Create">Yeni Çeviri Ekle</a>
+</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Çeviri ID</th>
+            <th>Dil ID</th>
+            <th>Anahtar</th>
+            <th>Değer</th>
+            <th>Detaylar</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var translation in Model)
+        {
+            <tr>
+                <td>@translation.TranslationID</td>
+                <td>@translation.LanguageID</td>
+                <td>@translation.Key</td>
+                <td>@translation.Value</td>
+                <td><a asp-action="Details" asp-route-id="@translation.TranslationID">Detaylar</a></td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@model Ucak__Rezervasyon.Models.User
+
+<h2>Yeni Kullanıcı Ekle</h2>
+
+<form asp-action="Create">
+    <div class="form-group">
+        <label asp-for="Email" class="control-label"></label>
+        <input asp-for="Email" class="form-control" />
+        <span asp-validation-for="Email" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="PasswordHash" class="control-label"></label>
+        <input asp-for="PasswordHash" class="form-control" />
+        <span asp-validation-for="PasswordHash" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="RoleID" class="control-label"></label>
+        <input asp-for="RoleID" class="form-control" />
+        <span asp-validation-for="RoleID" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="LanguageID" class="control-label"></label>
+        <input asp-for="LanguageID" class="form-control" />
+        <span asp-validation-for="LanguageID" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Kaydet" class="btn btn-primary" />
+    </div>
+</form>
+
+<div>
+    <a asp-action="Index">Geri Dön</a>
+</div>
+
+@model Ucak__Rezervasyon.Models.User
+
+<h2>Kullanıcı Detayları</h2>
+
+<dl class="row">
+    <dt class="col-sm-2">
+        Kullanıcı ID
+    </dt>
+    <dd class="col-sm-10">
+        @Model.UserID
+    </dd>
+    <dt class="col-sm-2">
+        Email
+    </dt>
+    <dd class="col-sm-10">
+        @Model.Email
+    </dd>
+    <dt class="col-sm-2">
+        Rol ID
+    </dt>
+    <dd class="col-sm-10">
+        @Model.RoleID
+    </dd>
+    <dt class="col-sm-2">
+        Dil ID
+    </dt>
+    <dd class="col-sm-10">
+        @Model.LanguageID
+    </dd>
+    <!-- Diğer detaylar -->
+</dl>
+
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.UserID">Düzenle</a> |
+    <a asp-action="Index">Geri Dön</a>
+</div>
+
+
+
+@model IEnumerable<Ucak__Rezervasyon.Models.User>
+
+<h2>Kullanıcı Listesi</h2>
+
+<p>
+    <a asp-action="Create">Yeni Kullanıcı Ekle</a>
+</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Kullanıcı ID</th>
+            <th>Email</th>
+            <th>Rol ID</th>
+            <th>Dil ID</th>
+            <th>Detaylar</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model)
+        {
+            <tr>
+                <td>@user.UserID</td>
+                <td>@user.Email</td>
+                <td>@user.RoleID</td>
+                <td>@user.LanguageID</td>
+                <td><a asp-action="Details" asp-route-id="@user.UserID">Detaylar</a></td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Ucak__Rezervasyon</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/Ucak__Rezervasyon.styles.css" asp-append-version="true" />
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container-fluid">
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Ucak__Rezervasyon</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2023 - Ucak__Rezervasyon - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
+
+
+<script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+
+
+@model ErrorViewModel
+@{
+    ViewData["Title"] = "Error";
+}
+
+<h1 class="text-danger">Error.</h1>
+<h2 class="text-danger">An error occurred while processing your request.</h2>
+
+@if (Model.ShowRequestId)
+{
+    <p>
+        <strong>Request ID:</strong> <code>@Model.RequestId</code>
+    </p>
+}
+
+<h3>Development Mode</h3>
+<p>
+    Swapping to <strong>Development</strong> environment will display more detailed information about the error that occurred.
+</p>
+<p>
+    <strong>The Development environment shouldn't be enabled for deployed applications.</strong>
+    It can result in displaying sensitive information from exceptions to end users.
+    For local debugging, enable the <strong>Development</strong> environment by setting the <strong>ASPNETCORE_ENVIRONMENT</strong> environment variable to <strong>Development</strong>
+    and restarting the app.
+</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

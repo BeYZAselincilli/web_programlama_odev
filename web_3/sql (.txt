@@ -1,0 +1,172 @@
+CREATE TABLE Routes (
+    RouteID INT PRIMARY KEY,
+    Origin VARCHAR(50),
+    Destination VARCHAR(50),
+    Distance INT
+);
+
+CREATE TABLE Planes (
+    PlaneID INT PRIMARY KEY,
+    Model VARCHAR(50),
+    Capacity INT
+);
+
+CREATE TABLE Flights (
+    FlightID INT PRIMARY KEY,
+    RouteID INT,
+    PlaneID INT,
+    DepartureTime DATETIME,
+    ArrivalTime DATETIME,
+    FOREIGN KEY (RouteID) REFERENCES Routes(RouteID),
+    FOREIGN KEY (PlaneID) REFERENCES Planes(PlaneID)
+);
+
+CREATE TABLE Seats (
+    SeatID INT PRIMARY KEY,
+    PlaneID INT,
+    SeatNumber VARCHAR(10),
+    Class VARCHAR(50),
+    Price DECIMAL(10, 2), -- Fiyat sütunu eklendi
+    FOREIGN KEY (PlaneID) REFERENCES Planes(PlaneID)
+);
+
+
+CREATE TABLE Reservations (
+    ReservationID INT PRIMARY KEY,
+    FlightID INT,
+    SeatID INT,
+    PassengerName VARCHAR(100),
+    Date DATETIME,
+    FOREIGN KEY (FlightID) REFERENCES Flights(FlightID),
+    FOREIGN KEY (SeatID) REFERENCES Seats(SeatID)
+);
+
+INSERT INTO Routes (RouteID, Origin, Destination, Distance) VALUES
+(1, 'İstanbul', 'Ankara', 450),
+(2, 'İzmir', 'Antalya', 350),
+(3, 'Ankara', 'Mersin', 600);
+
+INSERT INTO Planes (PlaneID, Model, Capacity) VALUES
+(101, 'Boeing 737', 180),
+(102, 'Airbus A320', 160),
+(103, 'Boeing 777', 300);
+
+
+INSERT INTO Flights (FlightID, RouteID, PlaneID, DepartureTime, ArrivalTime) VALUES
+(1001, 1, 101, '2023-12-15 08:00:00', '2023-12-15 09:30:00'),
+(1002, 2, 102, '2023-12-15 10:00:00', '2023-12-15 11:20:00'),
+(1003, 3, 103, '2023-12-15 12:00:00', '2023-12-15 14:00:00');
+
+INSERT INTO Reservations (ReservationID, FlightID, SeatID, PassengerName, Date) VALUES
+(5001, 1001, 1, 'Ahmet Yılmaz', '2023-12-15'),
+(5002, 1002, 5, 'Elif Kaya', '2023-12-15'),
+(5003, 1003, 9, 'Mehmet Öz', '2023-12-15');
+
+
+
+
+-- Boeing 737 için koltuklar (örnek fiyatlarla)
+INSERT INTO Seats (SeatID, PlaneID, SeatNumber, Class, Price) VALUES
+(1, 101, '1A', 'Business', 1500.00),
+(2, 101, '1B', 'Business', 1500.00),
+(3, 101, '2A', 'Ekonomi', 500.00);
+
+-- Airbus A320 için koltuklar (örnek fiyatlarla)
+INSERT INTO Seats (SeatID, PlaneID, SeatNumber, Class, Price) VALUES
+(4, 102, '1A', 'Business', 1500.00),
+(5, 102, '1B', 'Business', 1500.00),
+(6, 102, '2A', 'Ekonomi', 500.00);
+
+-- Boeing 777 için koltuklar (örnek fiyatlarla)
+INSERT INTO Seats (SeatID, PlaneID, SeatNumber, Class, Price) VALUES
+(7, 103, '1A', 'Business', 1500.00),
+(8, 103, '1B', 'Business', 1500.00),
+(9, 103, '2A', 'Ekonomi', 500.00);
+
+INSERT INTO Seats (SeatID, PlaneID, SeatNumber, Class, Price) VALUES
+(10, 101, '2B', 'Ekonomi', 500.00),
+(11, 101, '3A', 'Ekonomi', 500.00),
+(12, 101, '3B', 'Ekonomi', 500.00),
+(13, 101, '4A', 'Ekonomi', 500.00),
+(14, 101, '4B', 'Ekonomi', 500.00),
+(15, 101, '5A', 'Ekonomi', 500.00);
+
+INSERT INTO Seats (SeatID, PlaneID, SeatNumber, Class, Price) VALUES
+(16, 102, '2B', 'Ekonomi', 500.00),
+(17, 102, '3A', 'Ekonomi', 500.00),
+(18, 102, '3B', 'Ekonomi', 500.00),
+(19, 102, '4A', 'Ekonomi', 500.00),
+(20, 102, '4B', 'Ekonomi', 500.00),
+(21, 102, '5A', 'Ekonomi', 500.00);
+
+INSERT INTO Seats (SeatID, PlaneID, SeatNumber, Class, Price) VALUES
+(22, 103, '2B', 'Ekonomi', 500.00),
+(23, 103, '3A', 'Ekonomi', 500.00),
+(24, 103, '3B', 'Ekonomi', 500.00),
+(25, 103, '4A', 'Ekonomi', 500.00),
+(26, 103, '4B', 'Ekonomi', 500.00),
+(27, 103, '5A', 'Ekonomi', 500.00);
+
+
+
+
+CREATE TABLE Users (
+    UserID INT PRIMARY KEY,
+    Email VARCHAR(100),
+    PasswordHash VARCHAR(256),
+    RoleID INT,
+    LanguageID INT, -- Kullanıcıların dil tercihleri için
+    FOREIGN KEY (RoleID) REFERENCES Roles(RoleID),
+    FOREIGN KEY (LanguageID) REFERENCES Languages(LanguageID)
+);
+
+
+CREATE TABLE Roles (
+    RoleID INT PRIMARY KEY,
+    RoleName VARCHAR(50)
+);
+
+
+INSERT INTO Roles (RoleID, RoleName) VALUES
+(1, 'Admin'),
+(2, 'Member');
+
+
+INSERT INTO Users (UserID, Email, PasswordHash, RoleID, LanguagePreference) VALUES
+(1, 'g211210076@sakarya.edu.tr', 'sau', 1, 'tr'),
+(2, 'member@mail.com', 'memberpassword', 2, 'en');
+
+
+
+CREATE TABLE Languages (
+    LanguageID INT PRIMARY KEY,
+    LanguageCode VARCHAR(10),
+    LanguageName VARCHAR(50)
+);
+
+
+INSERT INTO Languages (LanguageID, LanguageCode, LanguageName) VALUES
+(1, 'en', 'English'),
+(2, 'tr', 'Türkçe');
+
+
+
+CREATE TABLE Translations (
+    TranslationID INT PRIMARY KEY,
+    LanguageID INT,
+    [Key] VARCHAR(100),  -- veya "Key" olarak da kullanılabilir
+    Value VARCHAR(255),
+    FOREIGN KEY (LanguageID) REFERENCES Languages(LanguageID)
+);
+
+
+
+INSERT INTO Translations (TranslationID, LanguageID, [Key], Value) VALUES
+(1, 1, 'welcome_message', 'Welcome to Our Application'),
+(2, 2, 'welcome_message', 'Uygulamamıza Hoş Geldiniz'),
+(3, 1, 'login_button', 'Login'),
+(4, 2, 'login_button', 'Giriş Yap');
+
+
+
+

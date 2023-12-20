@@ -1,0 +1,537 @@
+using Microsoft.AspNetCore.Mvc;
+using Ucak__Rezervasyon.Models;
+using System.Linq;
+
+public class FlightController : Controller
+{
+    private readonly UcakRezervasyonContext _context;
+
+    public FlightController(UcakRezervasyonContext context)
+    {
+        _context = context;
+    }
+
+    // Tüm uçuşları listeleyen metod
+    public IActionResult Index()
+    {
+        var flights = _context.Flights.ToList();
+        return View(flights);
+    }
+
+    // Uçuş detaylarını görüntüleyen metod
+    public IActionResult Details(int id)
+    {
+        var flight = _context.Flights.FirstOrDefault(f => f.FlightID == id);
+        if (flight == null)
+        {
+            return NotFound();
+        }
+        return View(flight);
+    }
+
+    // Uçuş ekleme sayfasını görüntüleyen metod
+    public IActionResult Create()
+    {
+        return View();
+    }
+
+    // Uçuş ekleme işlemini gerçekleştiren metod
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public IActionResult Create(Flight flight)
+    {
+        if (ModelState.IsValid)
+        {
+            _context.Flights.Add(flight);
+            _context.SaveChanges();
+            return RedirectToAction(nameof(Index));
+        }
+        return View(flight);
+    }
+
+    // Diğer metodlar (Edit, Delete vb.) buraya eklenebilir
+}
+
+
+
+using Microsoft.AspNetCore.Mvc;
+using System.Diagnostics;
+using Ucak__Rezervasyon.Models;
+
+namespace Ucak__Rezervasyon.Controllers
+{
+    public class HomeController : Controller
+    {
+        private readonly ILogger<HomeController> _logger;
+
+        public HomeController(ILogger<HomeController> logger)
+        {
+            _logger = logger;
+        }
+
+        public IActionResult Index()
+        {
+            return View();
+        }
+
+        public IActionResult Privacy()
+        {
+            return View();
+        }
+
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        public IActionResult Error()
+        {
+            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+    }
+}
+
+
+using Microsoft.AspNetCore.Mvc;
+using Ucak__Rezervasyon.Models;
+using System.Linq;
+
+public class LanguageController : Controller
+{
+    private readonly UcakRezervasyonContext _context;
+
+    public LanguageController(UcakRezervasyonContext context)
+    {
+        _context = context;
+    }
+
+    // Tüm dilleri listeleyen metod
+    public IActionResult Index()
+    {
+        var languages = _context.Languages.ToList();
+        return View(languages);
+    }
+
+    // Dil detaylarını görüntüleyen metod
+    public IActionResult Details(int id)
+    {
+        var language = _context.Languages.FirstOrDefault(l => l.LanguageID == id);
+        if (language == null)
+        {
+            return NotFound();
+        }
+        return View(language);
+    }
+
+    // Dil ekleme sayfasını görüntüleyen metod
+    public IActionResult Create()
+    {
+        return View();
+    }
+
+    // Dil ekleme işlemini gerçekleştiren metod
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public IActionResult Create(Language language)
+    {
+        if (ModelState.IsValid)
+        {
+            _context.Languages.Add(language);
+            _context.SaveChanges();
+            return RedirectToAction(nameof(Index));
+        }
+        return View(language);
+    }
+
+    // Diğer aksiyonlar (Edit, Delete vb.) buraya eklenebilir
+}
+
+
+
+using Microsoft.AspNetCore.Mvc;
+using Ucak__Rezervasyon.Models;
+using System.Linq;
+
+public class PlaneController : Controller
+{
+    private readonly UcakRezervasyonContext _context;
+
+    public PlaneController(UcakRezervasyonContext context)
+    {
+        _context = context;
+    }
+
+    // Tüm uçakları listeleyen metod
+    public IActionResult Index()
+    {
+        var planes = _context.Planes.ToList();
+        return View(planes);
+    }
+
+    // Uçak detaylarını görüntüleyen metod
+    public IActionResult Details(int id)
+    {
+        var plane = _context.Planes.FirstOrDefault(p => p.PlaneID == id);
+        if (plane == null)
+        {
+            return NotFound();
+        }
+        return View(plane);
+    }
+
+    // Uçak ekleme sayfasını görüntüleyen metod
+    public IActionResult Create()
+    {
+        return View();
+    }
+
+    // Uçak ekleme işlemini gerçekleştiren metod
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public IActionResult Create(Plane plane)
+    {
+        if (ModelState.IsValid)
+        {
+            _context.Planes.Add(plane);
+            _context.SaveChanges();
+            return RedirectToAction(nameof(Index));
+        }
+        return View(plane);
+    }
+
+    // Diğer aksiyonlar (Edit, Delete vb.) buraya eklenebilir
+}
+
+
+
+using Microsoft.AspNetCore.Mvc;
+using Ucak__Rezervasyon.Models;
+using System.Linq;
+
+public class ReservationController : Controller
+{
+    private readonly UcakRezervasyonContext _context;
+
+    public ReservationController(UcakRezervasyonContext context)
+    {
+        _context = context;
+    }
+
+    // Tüm rezervasyonları listeleyen metod
+    public IActionResult Index()
+    {
+        var reservations = _context.Reservations.ToList();
+        return View(reservations);
+    }
+
+    // Rezervasyon detaylarını görüntüleyen metod
+    public IActionResult Details(int id)
+    {
+        var reservation = _context.Reservations.FirstOrDefault(r => r.ReservationID == id);
+        if (reservation == null)
+        {
+            return NotFound();
+        }
+        return View(reservation);
+    }
+
+    // Rezervasyon ekleme sayfasını görüntüleyen metod
+    public IActionResult Create()
+    {
+        return View();
+    }
+
+    // Rezervasyon ekleme işlemini gerçekleştiren metod
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public IActionResult Create(Reservation reservation)
+    {
+        if (ModelState.IsValid)
+        {
+            _context.Reservations.Add(reservation);
+            _context.SaveChanges();
+            return RedirectToAction(nameof(Index));
+        }
+        return View(reservation);
+    }
+
+    // Diğer aksiyonlar (Edit, Delete vb.) buraya eklenebilir
+}
+
+
+using Microsoft.AspNetCore.Mvc;
+using Ucak__Rezervasyon.Models;
+using System.Linq;
+
+public class RoleController : Controller
+{
+    private readonly UcakRezervasyonContext _context;
+
+    public RoleController(UcakRezervasyonContext context)
+    {
+        _context = context;
+    }
+
+    // Tüm rolleri listeleyen metod
+    public IActionResult Index()
+    {
+        var roles = _context.Roles.ToList();
+        return View(roles);
+    }
+
+    // Rol detaylarını görüntüleyen metod
+    public IActionResult Details(int id)
+    {
+        var role = _context.Roles.FirstOrDefault(r => r.RoleID == id);
+        if (role == null)
+        {
+            return NotFound();
+        }
+        return View(role);
+    }
+
+    // Rol ekleme sayfasını görüntüleyen metod
+    public IActionResult Create()
+    {
+        return View();
+    }
+
+    // Rol ekleme işlemini gerçekleştiren metod
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public IActionResult Create(Role role)
+    {
+        if (ModelState.IsValid)
+        {
+            _context.Roles.Add(role);
+            _context.SaveChanges();
+            return RedirectToAction(nameof(Index));
+        }
+        return View(role);
+    }
+
+    // Diğer aksiyonlar (Edit, Delete vb.) buraya eklenebilir
+}
+
+using Microsoft.AspNetCore.Mvc;
+using Ucak__Rezervasyon.Models;
+using System.Linq;
+
+public class RouteController : Controller
+{
+    private readonly UcakRezervasyonContext _context;
+
+    public RouteController(UcakRezervasyonContext context)
+    {
+        _context = context;
+    }
+
+    // Tüm güzergahları listeleyen metod
+    public IActionResult Index()
+    {
+        var routes = _context.Routes.ToList();
+        return View(routes);
+    }
+
+    // Güzergah detaylarını görüntüleyen metod
+    public IActionResult Details(int id)
+    {
+        var route = _context.Routes.FirstOrDefault(r => r.RouteID == id);
+        if (route == null)
+        {
+            return NotFound();
+        }
+        return View(route);
+    }
+
+    // Güzergah ekleme sayfasını görüntüleyen metod
+    public IActionResult Create()
+    {
+        return View();
+    }
+
+    // Güzergah ekleme işlemini gerçekleştiren metod
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public IActionResult Create(Route route)
+    {
+        if (ModelState.IsValid)
+        {
+            _context.Routes.Add(route);
+            _context.SaveChanges();
+            return RedirectToAction(nameof(Index));
+        }
+        return View(route);
+    }
+
+    // Diğer aksiyonlar (Edit, Delete vb.) buraya eklenebilir
+}
+
+
+using Microsoft.AspNetCore.Mvc;
+using Ucak__Rezervasyon.Models;
+using System.Linq;
+
+public class SeatController : Controller
+{
+    private readonly UcakRezervasyonContext _context;
+
+    public SeatController(UcakRezervasyonContext context)
+    {
+        _context = context;
+    }
+
+    // Tüm koltukları listeleyen metod
+    public IActionResult Index()
+    {
+        var seats = _context.Seats.ToList();
+        return View(seats);
+    }
+
+    // Koltuk detaylarını görüntüleyen metod
+    public IActionResult Details(int id)
+    {
+        var seat = _context.Seats.FirstOrDefault(s => s.SeatID == id);
+        if (seat == null)
+        {
+            return NotFound();
+        }
+        return View(seat);
+    }
+
+    // Koltuk ekleme sayfasını görüntüleyen metod
+    public IActionResult Create()
+    {
+        return View();
+    }
+
+    // Koltuk ekleme işlemini gerçekleştiren metod
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public IActionResult Create(Seat seat)
+    {
+        if (ModelState.IsValid)
+        {
+            _context.Seats.Add(seat);
+            _context.SaveChanges();
+            return RedirectToAction(nameof(Index));
+        }
+        return View(seat);
+    }
+
+    // Diğer aksiyonlar (Edit, Delete vb.) buraya eklenebilir
+}
+
+
+using Microsoft.AspNetCore.Mvc;
+using Ucak__Rezervasyon.Models;
+using System.Linq;
+
+public class TranslationController : Controller
+{
+    private readonly UcakRezervasyonContext _context;
+
+    public TranslationController(UcakRezervasyonContext context)
+    {
+        _context = context;
+    }
+
+    // Tüm çevirileri listeleyen metod
+    public IActionResult Index()
+    {
+        var translations = _context.Translations.ToList();
+        return View(translations);
+    }
+
+    // Çeviri detaylarını görüntüleyen metod
+    public IActionResult Details(int id)
+    {
+        var translation = _context.Translations.FirstOrDefault(t => t.TranslationID == id);
+        if (translation == null)
+        {
+            return NotFound();
+        }
+        return View(translation);
+    }
+
+    // Çeviri ekleme sayfasını görüntüleyen metod
+    public IActionResult Create()
+    {
+        return View();
+    }
+
+    // Çeviri ekleme işlemini gerçekleştiren metod
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public IActionResult Create(Translation translation)
+    {
+        if (ModelState.IsValid)
+        {
+            _context.Translations.Add(translation);
+            _context.SaveChanges();
+            return RedirectToAction(nameof(Index));
+        }
+        return View(translation);
+    }
+
+    // Diğer aksiyonlar (Edit, Delete vb.) buraya eklenebilir
+}
+
+using Microsoft.AspNetCore.Mvc;
+using Ucak__Rezervasyon.Models;
+using System.Linq;
+
+public class UserController : Controller
+{
+    private readonly UcakRezervasyonContext _context;
+
+    public UserController(UcakRezervasyonContext context)
+    {
+        _context = context;
+    }
+
+    // Tüm kullanıcıları listeleyen metod
+    public IActionResult Index()
+    {
+        var users = _context.Users.ToList();
+        return View(users);
+    }
+
+    // Kullanıcı detaylarını görüntüleyen metod
+    public IActionResult Details(int id)
+    {
+        var user = _context.Users.FirstOrDefault(u => u.UserID == id);
+        if (user == null)
+        {
+            return NotFound();
+        }
+        return View(user);
+    }
+
+    // Kullanıcı ekleme sayfasını görüntüleyen metod
+    public IActionResult Create()
+    {
+        return View();
+    }
+
+    // Kullanıcı ekleme işlemini gerçekleştiren metod
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public IActionResult Create(User user)
+    {
+        if (ModelState.IsValid)
+        {
+            _context.Users.Add(user);
+            _context.SaveChanges();
+            return RedirectToAction(nameof(Index));
+        }
+        return View(user);
+    }
+
+    // Diğer aksiyonlar (Edit, Delete vb.) buraya eklenebilir
+}
+
+
+
+
+
+
+
+
+

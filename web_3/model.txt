@@ -1,0 +1,164 @@
+namespace Ucak__Rezervasyon.Models
+{
+    public class ErrorViewModel
+    {
+        public string? RequestId { get; set; }
+
+        public bool ShowRequestId => !string.IsNullOrEmpty(RequestId);
+    }
+}
+
+namespace Ucak__Rezervasyon.Models
+{
+    public class Flight
+    {
+        public int FlightID { get; set; } // Uçuşun benzersiz kimliği
+        public int RouteID { get; set; } // Uçuşun güzergahı
+        public int PlaneID { get; set; } // Uçuşu gerçekleştiren uçak
+        public DateTime DepartureTime { get; set; } // Kalkış zamanı
+        public DateTime ArrivalTime { get; set; } // Varış zamanı
+
+        // İlişkili Route ve Plane nesneleri (Eğer gerekirse)
+        public Route Route { get; set; }
+        public Plane Plane { get; set; }
+
+       
+    }
+}
+
+
+namespace Ucak__Rezervasyon.Models
+{
+    public class Language
+    {
+        public int LanguageID { get; set; }
+        public string LanguageCode { get; set; } // Örneğin: 'en', 'tr'
+        public string LanguageName { get; set; } // Örneğin: 'English', 'Türkçe'
+    }
+}
+
+
+namespace Ucak__Rezervasyon.Models
+{
+    public class Plane
+    {
+        public int PlaneID { get; set; }
+        public string Model { get; set; }
+        public int Capacity { get; set; }
+
+    }
+}
+
+
+namespace Ucak__Rezervasyon.Models
+{
+    public class Reservation
+    {
+        public int ReservationID { get; set; }
+        public int FlightID { get; set; }
+        public int SeatID { get; set; }
+        public string PassengerName { get; set; }
+        public DateTime Date { get; set; }
+
+    }
+}
+
+
+
+
+namespace Ucak__Rezervasyon.Models
+{
+    public class Role
+    {
+        public int RoleID { get; set; }
+        public string RoleName { get; set; } // Örneğin: 'Admin', 'User'
+    }
+}
+
+namespace Ucak__Rezervasyon.Models
+{
+    public class Route
+    {
+        public int RouteID { get; set; }
+        public string Origin { get; set; }
+        public string Destination { get; set; }
+        public int Distance { get; set; }
+
+    }
+}
+
+namespace Ucak__Rezervasyon.Models
+{
+    public class Seat
+    {
+        public int SeatID { get; set; }
+        public int PlaneID { get; set; }
+        public string SeatNumber { get; set; }
+        public string Class { get; set; } 
+        public decimal Price { get; set; }
+
+    }
+}
+
+namespace Ucak__Rezervasyon.Models
+{
+    public class Translation
+    {
+        public int TranslationID { get; set; }
+        public int LanguageID { get; set; }
+        public string Key { get; set; } // Çeviri için anahtar
+        public string Value { get; set; } // Çeviri metni
+
+        // İlişkili Language nesnesi
+        public Language Language { get; set; }
+    }
+}
+
+
+using Microsoft.EntityFrameworkCore;
+using System.Numerics;
+using Ucak__Rezervasyon.Models;
+
+public class UcakRezervasyonContext : DbContext
+{
+    public UcakRezervasyonContext(DbContextOptions<UcakRezervasyonContext> options) : base(options)
+    {
+    }
+
+    // Veritabanı tablolarınız için DbSet özellikleri
+    public DbSet<Ucak__Rezervasyon.Models.Route> Routes { get; set; }
+    public DbSet<Ucak__Rezervasyon.Models.Plane> Planes { get; set; }
+    public DbSet<Flight> Flights { get; set; }
+    public DbSet<Seat> Seats { get; set; }
+    public DbSet<Reservation> Reservations { get; set; }
+    public DbSet<Language> Languages { get; set; }
+    public DbSet<Role> Roles { get; set; }
+    public DbSet<Translation> Translations { get; set; }
+    public DbSet<User> Users { get; set; }
+
+
+}
+
+namespace Ucak__Rezervasyon.Models
+{
+    public class User
+    {
+        public int UserID { get; set; }
+        public string Email { get; set; }
+        public string PasswordHash { get; set; }
+        public int RoleID { get; set; }
+        public int LanguageID { get; set; } // Kullanıcının tercih ettiği dil
+
+        // İlişkili Role ve Language nesneleri
+        public Role Role { get; set; }
+        public Language Language { get; set; }
+    }
+}
+
+
+
+
+
+
+
+
